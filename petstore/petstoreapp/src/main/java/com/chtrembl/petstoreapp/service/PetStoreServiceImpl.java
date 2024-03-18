@@ -122,6 +122,7 @@ public class PetStoreServiceImpl implements PetStoreService {
 	public Collection<Product> getProducts(String category, List<Tag> tags) {
 		List<Product> products = new ArrayList<>();
 		private TelemetryClient telemetry = new TelemetryClient();
+		throw new Exception("Cannot move further");
 
 		try {
 			Consumer<HttpHeaders> consumer = it -> it.addAll(this.webRequest.getHeaders());
