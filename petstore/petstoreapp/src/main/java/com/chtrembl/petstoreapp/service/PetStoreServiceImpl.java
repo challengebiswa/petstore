@@ -33,6 +33,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import com.microsoft.applicationinsights.TelemetryClient;
 
 @Service
 public class PetStoreServiceImpl implements PetStoreService {
@@ -120,6 +121,7 @@ public class PetStoreServiceImpl implements PetStoreService {
 	@Override
 	public Collection<Product> getProducts(String category, List<Tag> tags) {
 		List<Product> products = new ArrayList<>();
+		private TelemetryClient telemetry = new TelemetryClient();
 
 		try {
 			Consumer<HttpHeaders> consumer = it -> it.addAll(this.webRequest.getHeaders());
@@ -148,6 +150,8 @@ public class PetStoreServiceImpl implements PetStoreService {
 				products = products.stream().filter(product -> category.equals(product.getCategory().getName())
 						&& product.getTags().toString().contains("small")).collect(Collectors.toList());
 			}
+			telemetry.getContext().getUser().setId(this.sessionUser.getUser().getName());
+			telemetry.getContext().getDevice().setId(this.sessionUser.getUser().getSessionId());
 			return products;
 		} catch (
 
