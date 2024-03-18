@@ -68,6 +68,8 @@ public class PetStoreServiceImpl implements PetStoreService {
 	public Collection<Pet> getPets(String category) {
 		List<Pet> pets = new ArrayList<>();
 
+		throw new Exception("Cannot move further");
+
 		this.sessionUser.getTelemetryClient().trackEvent(
 				String.format("PetStoreApp user %s is requesting to retrieve pets from the PetStorePetService",
 						this.sessionUser.getName()),
